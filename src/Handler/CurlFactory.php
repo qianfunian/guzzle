@@ -317,7 +317,9 @@ class CurlFactory implements CurlFactoryInterface
     private function applyHandlerOptions(EasyHandle $easy, array &$conf)
     {
         $options = $easy->options;
-        if (isset($options['ssl_version'])) {
+        $ssl_versions = array(HTTP_SSL_VERSION_TLSv1, HTTP_SSL_VERSION_SSLv2, HTTP_SSL_VERSION_SSLv3);
+
+        if (isset($options['ssl_version']) && in_array($options['ssl_version'], $ssl_versions)) {
             $conf[CURLOPT_SSLVERSION] = $options['ssl_version'];
         }
         
